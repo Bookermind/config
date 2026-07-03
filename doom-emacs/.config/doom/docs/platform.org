@@ -1,0 +1,56 @@
+#+TITLE: Platform specific Doom emacs configuration
+#+AUTHOR: Simon Booker
+#+OPTIONS: toc:2 num:t
+#+STARTUP: overview
+
+* Purpose
+
+This module contains platform specific configurations that are known to differ between WSL (work) and Fedora (home), other future operating system's configs will live here as well.
+The aim of this module is to keep all other modules platform agnostic.
+
+#+begin_src emacs-lisp :tangle ../generated/platform.el
+(defconst my/is-linux
+  (eq system-type 'gnu/linux)
+  "Non-nil when running on Linux")
+(defconst my/is-macos
+  (eq system-type 'darwin)
+  "Non-nill when running on MacOS")
+(defconst my/is-windows
+  (memq system-type '(windows-nt ms-dos cygwin))
+  "Non-nil when running on Windows")
+(defconst my/is-wsl
+  (and my/is-linux
+       (getenv "WSL_DISTRO_NAME"))
+  "Non-nil when running inside Windows Subsystem for Linux")
+#+end_src
+
+* Platform specific configuration
+
+This section intentionally starts empty
+
+Examples of platform specific configurations:
+- Shell selection
+- Clipboard integration
+- System specific fonts
+- WSL-specific fixes
+- NixOS specific configurations
+- Native linux integrations
+
+#+begin_src emacs-lisp :tangle ../generated/platform.el
+;;Nothing here yet
+#+end_src
+
+* Notes
+
+The login shell and the terminal shell need to be the same.
+For example if your login shell is bash and then within bash you launch zsh (with an exec zsh line in bashrc for example) this can lead to problems in emacs.
+Emacs will inherit an inconsistent environment and get confused between bash and zsh - resulting in issues around the PATH variable.
+Symptoms of this include:
+- Python not found
+- PATH missing the virtual environment
+- Eglot requiring manual intervention to either start and/or load the right language server
+
+Changing the login shell to zsh (for example) can really help here:
+#+begin_src bash
+chsh -s $(which zsh)
+#+end_src

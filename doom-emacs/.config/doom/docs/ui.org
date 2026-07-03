@@ -1,0 +1,42 @@
+#+TITLE: Doom Emacs UI Configurations
+#+AUTHOR: Simon Booker
+#+OPTIONS: toc:2 num:t
+#+STARTUP: overview
+
+* User Interface
+
+** Theme
+
+I use the catppuccin theme (mocha variant - usually the default) as this gives a nice dark (but not too dark) theme.
+Syntax highlighting is done in pastel shades improving code readability without triggering eye strain.
+
+Obviously if the theme is changed in the future make sure that the theme is installed via handwritten/packages.el BEFORE altering the config here!
+
+#+begin_src emacs-lisp :tangle ../generated/ui.el
+(setq doom-theme 'catppuccin)
+#+end_src
+
+** Fonts
+
+JetBrains Mono gives a nice, developer friendly mono-spaced font that is easy to read. Letters are evenly spaces and symbols do not dominate.
+JetBrains fonts support ligatures for correct rendering of equality and inequality symbols (amoung others)
+I use the nerd variant of jetbrains mono so that I have support for icons and advanced glyphs.
+
+As with the above theme - when changing the font here ensure:
+- That the font is installed in the system (either systemwide or locally)
+- That the font family is exactly as entered into this lisp (or emacs will fail to find it and fallback)
+
+#+begin_src emacs-lisp :tangle ../generated/ui.el
+(setq doom-font
+      (font-spec
+       :family "JetBrainsMono Nerd Font Mono"
+       :size 14))
+#+end_src
+
+#+begin_src emacs-lisp :tangle ../generated/ui.el
+(setq +ligatures-extra-symbols
+    '(:lambda        "λ"
+      :def           "ƒ"
+      :composition   "∘"
+      :yield         "⟻"))
+#+end_src

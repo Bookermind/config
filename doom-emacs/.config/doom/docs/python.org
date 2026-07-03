@@ -1,0 +1,43 @@
+#+TITLE: Emacs Python configuration
+#+AUTHOR: Simon Booker
+#+OPTIONS: toc:2 num:t
+#+STARTUP: overview
+
+* Purpose
+
+I use emacs as by IDE for Python development.
+When developing in python the following design goals and tool sets impact the IDE:
+- Fast Startup (because VSCode very often isn't!)
+- Local Python virtual environment - the IDS must recognise and autostart a python venv in the project root - by convention this is '.venv')
+- basepyright - used as the language server
+- ruff - used for code linting and formatting
+- docker - docker containers are very often used to ensure version compatability and portability of the python code
+
+** Language Server
+
+Setup basedpyright as the language server and ensure it autostarts
+
+*** Based pyright
+#+begin_src emacs-lisp :tangle ../generated/python.el
+(after! eglot
+  (setf (alist-get 'python-mode eglot-server-programs)
+  '("basedpyright-langserver" "--stdio")))
+#+end_src
+
+*** Autostart
+
+Ensure that the language server autostarts!
+
+#+begin_src emacs-lisp :tangle ../generated/python.el
+(after! python
+  (add-hook
+   'python-mode-local-vars-hook #'eglot-ensure))
+#+end_src
+
+* Notes/ Future actions
+
+List is maintained here for things to investigate and/or implement in this module in the future
+- [ ] Tree-sitter
+- [ ] DAP debugging
+- [ ] Ruff formatting
+- [ ] Linting

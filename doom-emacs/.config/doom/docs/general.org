@@ -1,0 +1,48 @@
+#+TITLE: General DOOM Emacs Configuration
+#+AUTHOR: Simon Booker
+#+OPTIONS: toc:2 num:t
+#+STARTUP: overview
+
+* General Emacs settings
+These settings affect Emacs globally and don't natural below to a specific module.
+This module should remain small.
+
+It's purpose is to contain editor-wide behaviour rather than UI, language support or platform specific configurations.
+
+** Relative Line Numbers
+
+Relative line numbers make line based evil motions easier.
+#+begin_src emacs-lisp :tangle ../generated/general.el
+(setq display-line-numbers-type 'relative)
+#+end_src
+
+** ORG Directory
+
+All personal orb documents live under ~/org.
+#+begin_src emacs-lisp :tangle ../generated/general.el
+(setq org-directory "~/org")
+#+end_src
+
+** General editing behaviour
+
+#+begin_src emacs-lisp :tangle ../generated/general.el
+(setq
+ confirm-kill-emacs nil
+ delete-by-moving-to-trash t
+ scroll-margin 5)
+#+end_src
+
+** Mouse behaviour
+
+#+begin_src emacs-lisp :tangle ../generated/general.el
+(setq
+ mouse-wheel-scroll-amount '(1)
+ mouse-wheel-progressive-speed nil)
+#+end_src
+
+** Cursor Line
+
+Highlight the current line in the buffer to improve readability
+#+begin_src emacs-lisp :tangle ../generated/general.el
+(global-hl-line-mode 1)
+#+end_src
